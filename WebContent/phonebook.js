@@ -1,65 +1,62 @@
+angular.module('phonebook', [])
 
-var app = angular.module('phonebook', ['ngRoute']);
+.controller('PhonebookList', function($scope, $http, $location) {
 
-
-app.config(['$routeProvider', function ($routeProvider, $locationProvider) {
-	$routeProvider
-	.when('/', {
-		templateUrl: 'list.html',
-		controller: 'PhonebookList as phonebookList'
-	})
-	.when('/edit/:entryID', {
-		templateUrl: 'edit.html',
-		controller: 'PhonebookEdit as phonebookEdit'
-	})
-	.when('/add', {
-		templateUrl: 'edit.html',
-		controller: 'PhonebookAdd as phonebookAdd'
-	})
-	.otherwise({ redirectTo: '/' });
-}]);
-
-app.controller('PhonebookList', function($scope, $http, $location) {
-	
 	console.log("list");
+	var id = 0;
+	$scope.entry = {title : "", firstName : "", lastName : "", phoneNumber : ""};
+
 	$http.get('api/phonebook').success(function(data) {
 		$scope.entries = data.entries;
 	});
-	
-	$scope.remove = function (_id, _index) {
-		
-		var confirmation = confirm("Delete this entry?");
-		if (confirmation == true) {
-			$http['delete']('api/phonebook/'+ _id);
-			$scope.entries.splice(_index, 1);
+
+	$scope.loadEntry = function() {
+
+		if (id) { 
+			$http.get('api/phonebook/' + id).success(function(data) {
+				$scope.entry = data;
+			});
+		} else {
+			$scope.entry = {title : "", firstName : "", lastName : "", phoneNumber : ""};	
 		}
-		
+
 	};
 
-});
+	$scope.setId = function(_id) {
 
-app.controller('PhonebookEdit', function($scope, $http, $location, $routeParams) {
-	
-	var id = $routeParams.entryID;
-	$http.get('api/phonebook/'+id).success(function(data) {
-		$scope.entry = data;
-	});
-	
+		console.log("setid");
+		id = _id;
+	};
+
+	$scope.remove = function() {
+
+		console.log("remove");
+		$http['delete']('api/phonebook/' + id).then(function(data) {
+			location.reload();
+		});
+
+	};
+
 	$scope.submit = function() {
-		$http.put('api/phonebook/'+id, {title: $scope.entry.title, firstName: $scope.entry.firstName, lastName: $scope.entry.lastName, phoneNumber: $scope.entry.phoneNumber}).then(function(data) {
-	          $location.path('#/');
-	      });
+		if (id) {
+			$http.put('api/phonebook/' + id, {
+				title : $scope.entry.title,
+				firstName : $scope.entry.firstName,
+				lastName : $scope.entry.lastName,
+				phoneNumber : $scope.entry.phoneNumber
+			}).then(function(data) {
+				location.reload();
+			});
+		} else {
+			$http.post('api/phonebook', {
+				title : $scope.entry.title,
+				firstName : $scope.entry.firstName,
+				lastName : $scope.entry.lastName,
+				phoneNumber : $scope.entry.phoneNumber
+			}).then(function(data) {
+				location.reload();
+			});
+		}
 	};
-	
-});
 
-app.controller('PhonebookAdd', function($scope, $http, $location) {
-	
-	$scope.entry = {title: "", firstName: "", lastName: "", phoneNumber: ""};
-	
-	$scope.submit = function() {
-		$http.post('api/phonebook', {title: $scope.entry.title, firstName: $scope.entry.firstName, lastName: $scope.entry.lastName, phoneNumber: $scope.entry.phoneNumber}).then(function(data) {
-	          $location.path('#/');
-	      });
-	};
 });
