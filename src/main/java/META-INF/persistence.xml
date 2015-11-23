@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="openjpa-phonebook">
+		<!-- The cloudAutowiring-1.0 Liberty feature will resolve this to whatever 
+			the database service name is -->
+
+		<jta-data-source>java:comp/env/jdbc/mydbdatasource</jta-data-source>
+		<class>com.ibmcloud.contest.phonebook.PhonebookEntry</class>
+		<properties>
+		
+			<!--  To deploy locally on Liberty
+			      1. copy deploy/server.xml into your liberty server.
+			      2. fill out the following persistence property names
+			      3. If using MYSQL, append "?relaxAutoCommit=true" to thr url.
+			         For example:
+			         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db?relaxAutoCommit=true" />
+			-->
+			<!-- UNCOMMENT this to deploy locally 
+			<property name="javax.persistence.jdbc.driver" value="com.ibm.DB2.jcc.DB2Driver" />
+        	<property name="javax.persistence.jdbc.url" value="jdbc:db2://hostname:port/dbname" />
+        	<property name="javax.persistence.jdbc.user" value="dbuser" />
+        	<property name="javax.persistence.jdbc.password" value="dbpassword" />
+			-->
+			
+			<!-- allow table definitions/creation on-the-fly jpa-2.0 feature -->
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" />
+			<!-- allow table definitions/creation on-the-fly jpa-2.1 feature -->
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
+		</properties>
+	</persistence-unit>
+</persistence>

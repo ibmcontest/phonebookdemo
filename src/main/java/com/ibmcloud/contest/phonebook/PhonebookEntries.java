@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,18 +15,19 @@
  */
 package com.ibmcloud.contest.phonebook;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 /**
- * Throw a 404 status code
+ *
  */
-public class NotFoundException extends WebApplicationException {
+public class PhonebookEntries {
+    public List<PhonebookEntry> entries;
 
-    private static final long serialVersionUID = 1L;
+    public List<PhonebookEntry> getEntries() {
+        return entries;
+    }
 
-    public NotFoundException() {
-        super(Response.status(Status.NOT_FOUND).build());
+    public void setEntries(final List<PhonebookEntry> entries) {
+        this.entries = entries;
     }
 }

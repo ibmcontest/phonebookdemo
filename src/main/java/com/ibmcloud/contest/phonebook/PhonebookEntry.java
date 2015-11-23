@@ -102,4 +102,10 @@ public class PhonebookEntry {
         this.phoneNumber = phoneNumber;
     }
 
+    // Simple equals method to check if title, name, and phone number are the same as "other"
+    public boolean equals(final PhonebookEntry other) {
+        return (this.title == other.getTitle() && this.firstName == other.getFirstName()
+                && this.lastName == other.getLastName() && this.phoneNumber == other.getPhoneNumber());
+    }
+
 }
