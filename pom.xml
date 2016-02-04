@@ -51,11 +51,6 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
            <outputDirectory>${project.build.directory}</outputDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-          <webResources>
-            <resource>
-              <directory>${project.build.directory}/generated-sources/jaxrs-raml/</directory>
-            </resource>
-          </webResources>
         </configuration>
       </plugin>
       <plugin>

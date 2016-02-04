@@ -8,7 +8,7 @@ securitySchemes:
       description: User Key for API authentication
       type: x-user-key
       describedBy:
-        headers:
+        queryParameters:
           Authentication:
             type: string
 securedBy: [userKey]
@@ -34,6 +34,7 @@ schemas:
               <xs:element name="firstName" type="xs:string" minOccurs="0"/>
               <xs:element name="lastName" type="xs:string" minOccurs="0"/>
               <xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
+              <xs:element name="userkey" type="xs:string" minOccurs="0"/>
             </xs:sequence>
           </xs:complexType>
         </xs:schema>
@@ -70,6 +71,10 @@ schemas:
                     "phoneNumber" : {
                       "required" : false ,
                       "type" : "string"
+                    } ,
+                    "userkey" : {
+                      "required" : false ,
+                      "type" : "string"
                     }
                   }
                 }
@@ -90,6 +95,7 @@ schemas:
               <xs:element name="firstName" type="xs:string" minOccurs="0"/>
               <xs:element name="lastName" type="xs:string" minOccurs="0"/>
               <xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
+              <xs:element name="userkey" type="xs:string" minOccurs="0"/>
             </xs:sequence>
           </xs:complexType>
         </xs:schema>
@@ -118,12 +124,17 @@ schemas:
             "phoneNumber" : {
               "required" : false ,
               "type" : "string"
+            } ,
+            "userkey" : {
+              "required" : false ,
+              "type" : "string"
             }
           }
         }
 /phonebook: 
   post: 
     description: Adds entry to phonebook
+    queryParameters: 
     body: 
       application/json: 
         schema: phonebookEntry
@@ -133,7 +144,8 @@ schemas:
             "title" : "str1234" ,
             "firstName" : "str1234" ,
             "lastName" : "str1234" ,
-            "phoneNumber" : "str1234"
+            "phoneNumber" : "str1234" ,
+            "userkey" : "str1234"
           }
     responses: 
       201: 
@@ -158,39 +170,63 @@ schemas:
                     "title" : "str1234" ,
                     "firstName" : "str1234" ,
                     "lastName" : "str1234" ,
-                    "phoneNumber" : "str1234"
+                    "phoneNumber" : "str1234" ,
+                    "userkey" : "str1234"
                   } , {
                     "id" : 123 ,
                     "title" : "str1234" ,
                     "firstName" : "str1234" ,
                     "lastName" : "str1234" ,
-                    "phoneNumber" : "str1234"
+                    "phoneNumber" : "str1234" ,
+                    "userkey" : "str1234"
                   }
                 ]
               }
+      401: 
+        description: User not authorized
+        body: 
+          application/json: 
   /{id}: 
     get: 
       description: Returns entry with provided ID
+      queryParameters: 
       responses: 
         200: 
           description: OK
           body: 
             application/json: 
-              schema: phonebookEntry
+              schema: phonebookEntries
               example: |
                 {
-                  "id" : 123 ,
-                  "title" : "str1234" ,
-                  "firstName" : "str1234" ,
-                  "lastName" : "str1234" ,
-                  "phoneNumber" : "str1234"
+                  "entries" : [
+                    {
+                      "id" : 123 ,
+                      "title" : "str1234" ,
+                      "firstName" : "str1234" ,
+                      "lastName" : "str1234" ,
+                      "phoneNumber" : "str1234" ,
+                      "userkey" : "str1234"
+                    } , {
+                      "id" : 123 ,
+                      "title" : "str1234" ,
+                      "firstName" : "str1234" ,
+                      "lastName" : "str1234" ,
+                      "phoneNumber" : "str1234" ,
+                      "userkey" : "str1234"
+                    }
+                  ]
                 }
+        401: 
+          description: User not authorized
+          body: 
+            application/json: 
         404: 
           description: Entry not found for given ID
           body: 
             application/json: 
     put: 
       description: Updates an existing entry in the phonebook
+      queryParameters: 
       body: 
         application/json: 
           schema: phonebookEntry
@@ -200,7 +236,8 @@ schemas:
               "title" : "str1234" ,
               "firstName" : "str1234" ,
               "lastName" : "str1234" ,
-              "phoneNumber" : "str1234"
+              "phoneNumber" : "str1234" ,
+              "userkey" : "str1234"
             }
       responses: 
         204: 
@@ -209,8 +246,17 @@ schemas:
           description: Entry not found for given ID
     delete: 
       description: Deletes an existing entry from the phonebook
+      queryParameters: 
       responses: 
         204: 
           description: OK
         404: 
           description: Entry not found for given ID
+/user: 
+  post: 
+    description: Creates new user entry
+    responses: 
+      201: 
+        description: User created successfully
+        body: 
+          application/json: 
