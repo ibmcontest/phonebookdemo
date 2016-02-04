@@ -351,7 +351,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     public void afterScan(final Reader reader, final Swagger swagger) {
 
         final ApiKeyAuthDefinition authScheme = new ApiKeyAuthDefinition();
-        authScheme.setIn(In.HEADER);
+        authScheme.setIn(In.QUERY);
         authScheme.setName("Authorization"); //$NON-NLS-1$
 
         swagger.addSecurityDefinition("apikey_auth", authScheme); //$NON-NLS-1$
