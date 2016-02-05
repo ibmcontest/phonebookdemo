@@ -19,6 +19,7 @@ angular.module('phonebook', [])
 .controller('PhonebookList', function($scope, $http, $location, $window) {
   $scope.authkey = $location.search().key;
   var id = 0;
+  var attemptedLoad = false;
   $scope.auth = {
     valid: false
   };
@@ -32,16 +33,19 @@ angular.module('phonebook', [])
 
   function loadEntries() {
     $http.get('api/phonebook?Authorization=' + $scope.authkey).success(function(data) {
+      $scope.attemptFailed = false;
       $scope.auth.valid = true;
       $scope.entries = data.entries;
     }).error(function(data, status) {
       $scope.auth.valid = false;
-      $scope.AttemptFailed = true;
+      if (attemptedLoad) {
+        $scope.attemptFailed = true;
+      }
     });
   }
 
   $scope.loadKey = function() {
-    $scope.attemptFailed = false;
+    attemptedLoad = true;
     loadEntries();
   };
   $scope.createKey = function() {
