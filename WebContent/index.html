@@ -22,6 +22,15 @@
 	</a>
 	<div ng-controller="PhonebookList">
 		<div ng-show="!auth.valid">
+			<table align = "center" style="text-align:center;width:50%">
+				<tr>
+					<td>
+						<p>An access key is required to operate on the phonebook. </p>
+						<p>	If you have previously generated an access key, please enter it here and click Load.</p>
+						<p>	Alternatively, you can obtain a new access key by clicking the Create button.</p>
+					</td>
+				</tr>
+			</table>
 			<table cellpadding="44" align="center" style="width:30%">
 				<tr>
 					<td style="width:75%;">
@@ -33,7 +42,7 @@
 				</tr>
 				<tr>
 					<td>
-						<span ng-show="!auth.valid && attemptedLoad"> Unknown key</span>
+						<span ng-show="!auth.valid && attemptFailed"> Unknown key</span>
 					</td>
 				</tr>
 			</table>
