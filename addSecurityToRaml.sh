@@ -17,7 +17,7 @@ securitySchemes:
       type: x-user-key
       describedBy:
         queryParameters:
-          Authentication:
+          Authorization:
             type: string
 securedBy: [userKey]
 ENDTEXT
