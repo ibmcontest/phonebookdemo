@@ -34,7 +34,6 @@ schemas:
               <xs:element name="firstName" type="xs:string" minOccurs="0"/>
               <xs:element name="lastName" type="xs:string" minOccurs="0"/>
               <xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
-              <xs:element name="userkey" type="xs:string" minOccurs="0"/>
             </xs:sequence>
           </xs:complexType>
         </xs:schema>
@@ -71,10 +70,6 @@ schemas:
                     "phoneNumber" : {
                       "required" : false ,
                       "type" : "string"
-                    } ,
-                    "userkey" : {
-                      "required" : false ,
-                      "type" : "string"
                     }
                   }
                 }
@@ -95,7 +90,6 @@ schemas:
               <xs:element name="firstName" type="xs:string" minOccurs="0"/>
               <xs:element name="lastName" type="xs:string" minOccurs="0"/>
               <xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
-              <xs:element name="userkey" type="xs:string" minOccurs="0"/>
             </xs:sequence>
           </xs:complexType>
         </xs:schema>
@@ -124,10 +118,6 @@ schemas:
             "phoneNumber" : {
               "required" : false ,
               "type" : "string"
-            } ,
-            "userkey" : {
-              "required" : false ,
-              "type" : "string"
             }
           }
         }
@@ -145,8 +135,7 @@ schemas:
             "title" : "str1234" ,
             "firstName" : "str1234" ,
             "lastName" : "str1234" ,
-            "phoneNumber" : "str1234" ,
-            "userkey" : "str1234"
+            "phoneNumber" : "str1234"
           }
     responses: 
       201: 
@@ -174,15 +163,13 @@ schemas:
                     "title" : "str1234" ,
                     "firstName" : "str1234" ,
                     "lastName" : "str1234" ,
-                    "phoneNumber" : "str1234" ,
-                    "userkey" : "str1234"
+                    "phoneNumber" : "str1234"
                   } , {
                     "id" : 123 ,
                     "title" : "str1234" ,
                     "firstName" : "str1234" ,
                     "lastName" : "str1234" ,
-                    "phoneNumber" : "str1234" ,
-                    "userkey" : "str1234"
+                    "phoneNumber" : "str1234"
                   }
                 ]
               }
@@ -209,16 +196,13 @@ schemas:
                       "title" : "str1234" ,
                       "firstName" : "str1234" ,
                       "lastName" : "str1234" ,
-                      "phoneNumber" : "str1234" ,
-                      "userkey" : "str1234"
+                      "phoneNumber" : "str1234"
                     } , {
                       "id" : 123 ,
                       "title" : "str1234" ,
                       "firstName" : "str1234" ,
                       "lastName" : "str1234" ,
-                      "phoneNumber" : "str1234" ,
-                      "userkey" : "str1234"
-                    }
+                      "phoneNumber" : "str1234"
                   ]
                 }
         401: 
@@ -238,8 +222,7 @@ schemas:
               "title" : "str1234" ,
               "firstName" : "str1234" ,
               "lastName" : "str1234" ,
-              "phoneNumber" : "str1234" ,
-              "userkey" : "str1234"
+              "phoneNumber" : "str1234"
             }
       responses: 
         401: 
