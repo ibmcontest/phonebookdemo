@@ -49,6 +49,7 @@ public class PhonebookServiceHandlerTest {
     private UriInfo uriInfo;
 
     private PhonebookServiceHandler phonebookServiceHandler;
+    private UserServiceHandler userServiceHandler;
 
     @BeforeClass
     public static void initialize() throws Exception {
@@ -72,6 +73,7 @@ public class PhonebookServiceHandlerTest {
         when(uriInfo.getAbsolutePath()).thenReturn(new URI(DUMMYHOST));
 
         phonebookServiceHandler = new PhonebookServiceHandler(utx, em, uriInfo);
+        userServiceHandler = new UserServiceHandler(utx, em, uriInfo);
     }
 
     private void createEntries(final List<PhonebookEntry> entries) throws Exception {
@@ -92,7 +94,7 @@ public class PhonebookServiceHandlerTest {
 
     @Test
     public void createUser() {
-        final UserEntry entry = (UserEntry) phonebookServiceHandler.createUser().getEntity();
+        final UserEntry entry = (UserEntry) userServiceHandler.createUser().getEntity();
         assertEquals(entry.getKey().length(), 11);
 
         final UserEntry findEntry = em.find(UserEntry.class, entry.getKey());
