@@ -30,6 +30,9 @@ function addDisplayName {
 }
 
 if ! grep -q "securitySchemes" "${TARGET_FILE}"; then
+	# Remove "Authorization:" from the parameters
+	sed -i '' '/Authorization:/d' ${TARGET_FILE}
+	
 	# Add security Scheme after "protocols:"
 	sed -i '' "/protocols.*/r ${TEMPFILE}" ${TARGET_FILE}
 
@@ -40,9 +43,6 @@ if ! grep -q "securitySchemes" "${TARGET_FILE}"; then
 	addDisplayName "Updates an existing entry in the phonebook" "update"
 	addDisplayName "Deletes an existing entry from the phonebook" "deleteEntry"
 	addDisplayName "Creates new user entry" "createUser"
-
-	# Remove "headers:\nAuthorization:" from the parameters
-	sed -i '' '/headers:/N;/Authorization:/d' ${TARGET_FILE}
 
 	echo Security Definition added to ${TARGET_FILE} successfully
 else
