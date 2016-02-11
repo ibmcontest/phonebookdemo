@@ -121,6 +121,30 @@ schemas:
             }
           }
         }
+  - userEntry-xml: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        
+          <xs:element name="userEntry" type="userEntry"/>
+        
+          <xs:complexType name="userEntry">
+            <xs:sequence>
+              <xs:element name="userkey" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:schema>
+  - userEntry: |
+        {
+          "$schema" : "http://json-schema.org/draft-03/schema" ,
+          "type" : "object" ,
+          "required" : true ,
+          "properties" : {
+            "userkey" : {
+              "required" : false ,
+              "type" : "string"
+            }
+          }
+        }
 /phonebook: 
   post: 
     description: Adds entry to phonebook
@@ -175,8 +199,6 @@ schemas:
               }
       401: 
         description: User not authorized
-        body: 
-          application/json: 
   /{id}: 
     get: 
       description: Returns entry with provided ID
@@ -203,6 +225,7 @@ schemas:
                       "firstName" : "str1234" ,
                       "lastName" : "str1234" ,
                       "phoneNumber" : "str1234"
+                    }
                   ]
                 }
         401: 
@@ -251,3 +274,4 @@ schemas:
         description: User created successfully
         body: 
           application/json: 
+            schema: userEntry

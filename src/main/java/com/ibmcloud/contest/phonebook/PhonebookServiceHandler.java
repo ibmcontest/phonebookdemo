@@ -270,8 +270,8 @@ public class PhonebookServiceHandler implements ReaderListener {
     @POST
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Creates new user entry")
-    @ApiResponse(code = 201, message = "User created successfully", response = UserEntry.class)
+    @ApiOperation(value = "Creates new user entry", response = UserEntry.class)
+    @ApiResponse(code = 201, message = "User created successfully")
     public Response createUser() {
 
         final String key = generateKey();
