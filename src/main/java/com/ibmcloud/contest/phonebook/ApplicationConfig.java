@@ -47,6 +47,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(final Set<Class<?>> resources) {
         resources.add(com.ibmcloud.contest.phonebook.PhonebookServiceHandler.class);
+        resources.add(com.ibmcloud.contest.phonebook.UserServiceHandler.class);
     }
 
 }

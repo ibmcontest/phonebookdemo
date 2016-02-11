@@ -18,7 +18,6 @@ package com.ibmcloud.contest.phonebook;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
@@ -54,8 +53,8 @@ import io.swagger.models.Swagger;
 import io.swagger.models.auth.ApiKeyAuthDefinition;
 import io.swagger.models.auth.In;
 
-@Path("/")
-@Api(value = "/", authorizations = { @Authorization(value = "apikey_auth") })
+@Path("/phonebook")
+@Api(value = "/phonebook", authorizations = { @Authorization(value = "apikey_auth") })
 /**
  * CRUD service for phonebook table. It uses REST Style
  *
@@ -80,7 +79,6 @@ public class PhonebookServiceHandler implements ReaderListener {
     }
 
     @GET
-    @Path("phonebook")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Returns list of entries matching the query")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PhonebookEntries.class),
@@ -127,7 +125,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     }
 
     @GET
-    @Path("phonebook/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Returns entry with provided ID")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PhonebookEntries.class),
@@ -155,7 +153,6 @@ public class PhonebookServiceHandler implements ReaderListener {
     }
 
     @POST
-    @Path("phonebook")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Adds entry to phonebook")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created successfully"),
@@ -191,7 +188,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     }
 
     @PUT
-    @Path("phonebook/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Updates an existing entry in the phonebook")
     @ApiResponses(value = { @ApiResponse(code = 204, message = "OK"),
@@ -232,7 +229,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     }
 
     @DELETE
-    @Path("phonebook/{id}")
+    @Path("{id}")
     @ApiOperation(value = "Deletes an existing entry from the phonebook")
     @ApiResponses(value = { @ApiResponse(code = 204, message = "OK"),
             @ApiResponse(code = 401, message = "User not authorized"),
@@ -265,53 +262,6 @@ public class PhonebookServiceHandler implements ReaderListener {
             throw new WebApplicationException();
         }
 
-    }
-
-    @POST
-    @Path("user")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Creates new user entry", response = UserEntry.class)
-    @ApiResponse(code = 201, message = "User created successfully")
-    public Response createUser() {
-
-        final String key = generateKey();
-        final UserEntry user = new UserEntry(key);
-        try {
-            utx.begin();
-            em.persist(user);
-            utx.commit();
-            return Response.status(201).entity(user).build();
-        } catch (final Exception e) {
-            e.printStackTrace();
-            throw new WebApplicationException();
-        } finally {
-            try {
-                if (utx.getStatus() == Status.STATUS_ACTIVE) {
-                    utx.rollback();
-                }
-            } catch (final Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private String generateKey() {
-        final String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //$NON-NLS-1$
-        final Random rand = new Random();
-        final int length = 11;
-        final StringBuilder builder = new StringBuilder(length);
-        String key;
-        UserEntry checkEntry;
-        do {
-            for (int i = 0; i < length; i++) {
-                builder.append(characters.charAt(rand.nextInt(characters.length())));
-            }
-            key = builder.toString();
-            checkEntry = em.find(UserEntry.class, key);
-        } while (checkEntry != null);
-
-        return key;
     }
 
     private void createSampleData(final String userkey) {
