@@ -11,7 +11,6 @@ securitySchemes:
         queryParameters:
           Authorization:
             type: string
-securedBy: [userKey]
 schemas: 
   - phonebookEntries-xml: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -149,6 +148,7 @@ schemas:
   post: 
     description: Adds entry to phonebook
     displayName: create
+    securedBy: [userKey]
     queryParameters: 
     body: 
       application/json: 
@@ -169,6 +169,7 @@ schemas:
   get: 
     description: Returns list of entries matching the query
     displayName: queryPhonebook
+    securedBy: [userKey]
     queryParameters: 
       title: 
       firstname: 
@@ -203,6 +204,7 @@ schemas:
     get: 
       description: Returns entry with provided ID
       displayName: getEntry
+      securedBy: [userKey]
       queryParameters: 
       responses: 
         200: 
@@ -235,6 +237,7 @@ schemas:
     put: 
       description: Updates an existing entry in the phonebook
       displayName: update
+      securedBy: [userKey]
       queryParameters: 
       body: 
         application/json: 
@@ -257,6 +260,7 @@ schemas:
     delete: 
       description: Deletes an existing entry from the phonebook
       displayName: deleteEntry
+      securedBy: [userKey]
       queryParameters: 
       responses: 
         401: 
@@ -269,7 +273,7 @@ schemas:
   post: 
     description: Creates new user entry
     displayName: createUser
-    securedBy: [null]
+    
     responses: 
       201: 
         description: User created successfully
