@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "phonebook2")
+@Table(name = "phonebook")
 @XmlRootElement(name = "phonebookEntry")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PhonebookEntry {
