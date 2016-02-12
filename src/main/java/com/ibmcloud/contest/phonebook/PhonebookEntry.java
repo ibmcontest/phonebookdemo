@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "phonebook")
+@Table(name = "phonebook2")
 @XmlRootElement(name = "phonebookEntry")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PhonebookEntry {
@@ -62,7 +62,7 @@ public class PhonebookEntry {
     @Id
     // Primary Key
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlElement(name = "id")
     long id;
 

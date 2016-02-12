@@ -1,6 +1,6 @@
 applications:
 - services:
-  - phonebook-sqldb
+  - phonebooktest-sqldb
   disk_quota: 1024M
   host: phonebookdemo
   name: phonebookdemo
@@ -11,6 +11,6 @@ applications:
   instances: 1
   memory: 512M
 declared-services:
-  phonebook-sqldb:
+  phonebooktest-sqldb:
     label: sqldb
     plan: sqldb_free
