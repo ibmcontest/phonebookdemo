@@ -146,11 +146,19 @@ public class PhonebookEntry {
                 && this.lastName == other.getLastName() && this.phoneNumber == other.getPhoneNumber());
     }
 
-    public boolean isComplete() {
-        if (title == null || firstName == null || lastName == null || phoneNumber == null) {
-            return false;
-        } else {
-            return true;
+    // Replaces null attributes with blank strings
+    public void fillNulls() {
+        if (title == null) {
+            title = ""; //$NON-NLS-1$
+        }
+        if (firstName == null) {
+            firstName = ""; //$NON-NLS-1$
+        }
+        if (lastName == null) {
+            lastName = ""; //$NON-NLS-1$
+        }
+        if (phoneNumber == null) {
+            phoneNumber = ""; //$NON-NLS-1$
         }
     }
 

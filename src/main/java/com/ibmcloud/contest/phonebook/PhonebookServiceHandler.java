@@ -160,7 +160,6 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Adds entry to phonebook")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created successfully"),
-            @ApiResponse(code = 400, message = "Invalid entry"),
             @ApiResponse(code = 401, message = "User not authorized") })
     public Response create(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
             final PhonebookEntry entry) {
@@ -171,9 +170,7 @@ public class PhonebookServiceHandler implements ReaderListener {
 
         entry.setUserKey(userkey);
 
-        if (!entry.isComplete()) {
-            throw new BadEntryException();
-        }
+        entry.fillNulls();
 
         try {
             utx.begin();
@@ -201,7 +198,6 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Updates an existing entry in the phonebook")
     @ApiResponses(value = { @ApiResponse(code = 204, message = "OK"),
-            @ApiResponse(code = 400, message = "Bad Entry"),
             @ApiResponse(code = 401, message = "User not authorized"),
             @ApiResponse(code = 404, message = "Entry not found for given ID") })
     public Response update(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
@@ -228,9 +224,7 @@ public class PhonebookServiceHandler implements ReaderListener {
         }
         final PhonebookEntry dbEntry = dbEntries.get(0);
 
-        if (!entry.isComplete()) {
-            throw new BadEntryException();
-        }
+        entry.fillNulls();
 
         try {
             utx.begin();

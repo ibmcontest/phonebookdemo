@@ -221,12 +221,6 @@ public class PhonebookServiceHandlerTest {
         phonebookServiceHandler.create(USERKEY, new PhonebookEntry("Mr", "John", "Doe", "12345"));
     }
 
-    @Test(expected = BadEntryException.class)
-    public void CreateBadEntry() throws Exception {
-        addUser(new UserEntry(USERKEY));
-        phonebookServiceHandler.create(USERKEY, new PhonebookEntry("Mr", "John", "Doe", null));
-    }
-
     @Test
     public void update() throws Exception {
         addUser(new UserEntry(USERKEY));
@@ -261,15 +255,6 @@ public class PhonebookServiceHandlerTest {
     public void updateUnauthorized() throws Exception {
         phonebookServiceHandler.update(USERKEY, "10000",
                 new PhonebookEntry("Mr", "Jack", "Doe", "12345", "jdoe@email.com"));
-    }
-
-    @Test(expected = BadEntryException.class)
-    public void UpdateBadEntry() throws Exception {
-        addUser(new UserEntry(USERKEY));
-        final PhonebookEntry entry = new PhonebookEntry("Mr", "John", "Doe", "12345", USERKEY);
-        createEntries(Arrays.asList(entry));
-        phonebookServiceHandler.update(USERKEY, String.valueOf(entry.getId()),
-                new PhonebookEntry("Mr", "John", "Doe", null));
     }
 
     @Test
