@@ -146,4 +146,12 @@ public class PhonebookEntry {
                 && this.lastName == other.getLastName() && this.phoneNumber == other.getPhoneNumber());
     }
 
+    public boolean isComplete() {
+        if (title == null || firstName == null || lastName == null || phoneNumber == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

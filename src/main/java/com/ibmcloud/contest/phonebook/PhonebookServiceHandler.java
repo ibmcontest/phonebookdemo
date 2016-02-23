@@ -137,8 +137,12 @@ public class PhonebookServiceHandler implements ReaderListener {
         if (!authenticateUser(userkey)) {
             throw new UnauthorizedException();
         }
-
-        final Long queryId = Long.parseLong(id);
+        final Long queryId;
+        try {
+            queryId = Long.parseLong(id);
+        } catch (final NumberFormatException e) {
+            throw new NotFoundException();
+        }
         final List<PhonebookEntry> dbEntries = em
                 .createQuery("SELECT t FROM PhonebookEntry t WHERE t.id = :id AND t.userkey = :user", //$NON-NLS-1$
                         PhonebookEntry.class)
@@ -156,6 +160,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Adds entry to phonebook")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created successfully"),
+            @ApiResponse(code = 400, message = "Invalid entry"),
             @ApiResponse(code = 401, message = "User not authorized") })
     public Response create(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
             final PhonebookEntry entry) {
@@ -165,6 +170,10 @@ public class PhonebookServiceHandler implements ReaderListener {
         }
 
         entry.setUserKey(userkey);
+
+        if (!entry.isComplete()) {
+            throw new BadEntryException();
+        }
 
         try {
             utx.begin();
@@ -192,8 +201,9 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Updates an existing entry in the phonebook")
     @ApiResponses(value = { @ApiResponse(code = 204, message = "OK"),
-            @ApiResponse(code = 404, message = "Entry not found for given ID"),
-            @ApiResponse(code = 401, message = "User not authorized") })
+            @ApiResponse(code = 400, message = "Bad Entry"),
+            @ApiResponse(code = 401, message = "User not authorized"),
+            @ApiResponse(code = 404, message = "Entry not found for given ID") })
     public Response update(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
             @PathParam("id") final String id, final PhonebookEntry entry) {
 
@@ -201,7 +211,12 @@ public class PhonebookServiceHandler implements ReaderListener {
             throw new UnauthorizedException();
         }
 
-        final Long queryId = Long.parseLong(id);
+        final Long queryId;
+        try {
+            queryId = Long.parseLong(id);
+        } catch (final NumberFormatException e) {
+            throw new NotFoundException();
+        }
 
         final List<PhonebookEntry> dbEntries = em
                 .createQuery("SELECT t FROM PhonebookEntry t WHERE t.id = :id AND t.userkey = :user", //$NON-NLS-1$
@@ -212,6 +227,11 @@ public class PhonebookServiceHandler implements ReaderListener {
             throw new NotFoundException();
         }
         final PhonebookEntry dbEntry = dbEntries.get(0);
+
+        if (!entry.isComplete()) {
+            throw new BadEntryException();
+        }
+
         try {
             utx.begin();
             dbEntry.setTitle(entry.getTitle());
@@ -241,7 +261,12 @@ public class PhonebookServiceHandler implements ReaderListener {
             throw new UnauthorizedException();
         }
 
-        final Long queryId = Long.parseLong(id);
+        final Long queryId;
+        try {
+            queryId = Long.parseLong(id);
+        } catch (final NumberFormatException e) {
+            throw new NotFoundException();
+        }
 
         final List<PhonebookEntry> dbEntries = em
                 .createQuery("SELECT t FROM PhonebookEntry t WHERE t.id = :id AND t.userkey = :user", //$NON-NLS-1$
