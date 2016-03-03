@@ -11,6 +11,6 @@ applications:
   instances: 1
   memory: 512M
 declared-services:
-  phonebook-sqldb:
+  elephantSQLDB:
     label: elephantsql
     plan: turtle
