@@ -4,7 +4,7 @@ applications:
   disk_quota: 1024M
   host: phonebookdemo
   name: phonebookdemo
-  description: This application is a sample REST Phonebook that uses an SQL DB, you can use it for the Integration Testing Service Tutorials.
+  description: This application is a sample REST Phonebook that uses a MySQL DB, you can use it for the Integration Testing Service Tutorials.
   path: target/phonebookdemo.war
   buildpack: liberty-for-java
   domain: mybluemix.net
