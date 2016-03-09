@@ -16,7 +16,7 @@ You'll need a [Bluemix][1] account, and then [deploy this application to Bluemix
 * run ```npm install``` in the root of project directory
 * Set up a DB2 datasource
 * Modify [persistence.xml](src/META-INF/persistence.xml) and follow the comments to connect to the datasource
-* Copy [db2jcc4.jar](deploy/db2jcc4.jar) on your local machine (i.e. C:/db2)
+* Copy [mysql-connector-java.jar](deploy/mysql-connector-java.jar) on your local machine (i.e. C:/mysql)
 * Copy [server.xml](deploy/server.xml) into the Liberty server instance.  Make modification as indicated by the comments within the file.
 * Publish the application to the Liberty server instance.
 
