@@ -253,8 +253,19 @@ schemas:
       responses: 
         401: 
           description: User not authorized
-        204: 
+        200: 
           description: OK
+          body: 
+            application/json: 
+              schema: phonebookEntry
+              example: |
+                {
+                  "id" : 123 ,
+                  "title" : "str1234" ,
+                  "firstName" : "str1234" ,
+                  "lastName" : "str1234" ,
+                  "phoneNumber" : "str1234"
+                }
         404: 
           description: Entry not found for given ID
     delete: 
