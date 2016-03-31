@@ -228,10 +228,10 @@ public class PhonebookServiceHandlerTest {
         createEntries(Arrays.asList(entry));
 
         final PhonebookEntry updateEntry = new PhonebookEntry("Mr", "Jack", "Doe", "12345", USERKEY);
-        final Response response = phonebookServiceHandler.update(USERKEY, String.valueOf(entry.getId()),
+        final PhonebookEntry response = phonebookServiceHandler.update(USERKEY, String.valueOf(entry.getId()),
                 updateEntry);
 
-        assertEquals(204, response.getStatus());
+        assertEquals(true, response.equals(updateEntry));
 
         final PhonebookEntry returnedEntry = phonebookServiceHandler.getEntry(USERKEY,
                 String.valueOf(entry.getId()));
