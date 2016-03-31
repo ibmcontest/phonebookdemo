@@ -196,11 +196,12 @@ public class PhonebookServiceHandler implements ReaderListener {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Updates an existing entry in the phonebook")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "OK"),
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 401, message = "User not authorized"),
             @ApiResponse(code = 404, message = "Entry not found for given ID") })
-    public Response update(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
+    public PhonebookEntry update(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
             @PathParam("id") final String id, final PhonebookEntry entry) {
 
         if (!authenticateUser(userkey)) {
@@ -234,7 +235,7 @@ public class PhonebookServiceHandler implements ReaderListener {
             dbEntry.setPhoneNumber(entry.getPhoneNumber());
             em.merge(dbEntry);
             utx.commit();
-            return Response.noContent().build();
+            return dbEntry;
         } catch (final Exception e) {
             e.printStackTrace();
             throw new WebApplicationException();
