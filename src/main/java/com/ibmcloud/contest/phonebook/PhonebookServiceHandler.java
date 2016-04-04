@@ -128,7 +128,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Returns entry with provided ID")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PhonebookEntries.class),
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PhonebookEntry.class),
             @ApiResponse(code = 401, message = "User not authorized"),
             @ApiResponse(code = 404, message = "Entry not found for given ID") })
     public PhonebookEntry getEntry(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
@@ -198,7 +198,7 @@ public class PhonebookServiceHandler implements ReaderListener {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Updates an existing entry in the phonebook")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PhonebookEntry.class),
             @ApiResponse(code = 401, message = "User not authorized"),
             @ApiResponse(code = 404, message = "Entry not found for given ID") })
     public PhonebookEntry update(@ApiParam(hidden = true) @QueryParam("Authorization") final String userkey,
