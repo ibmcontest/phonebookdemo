@@ -47,7 +47,7 @@
         <doc>Adds entry to phonebook</doc>
         <request>
           <param name="Authorization" style="query" type="xs:string"/>
-          <representation mediaType="application/json"/>
+          <representation mediaType="application/json" element="phonebookEntry"/>
         </request>
         <response status="201">
           <doc>Created Successfully</doc>
@@ -90,7 +90,7 @@
           </request>
           <response status="200">
             <doc>OK</doc>
-            <representation mediaType="application/json"/>
+            <representation mediaType="application/json" element="phonebookEntry"/>
           </response>
           <response status="401">
             <doc>User Not Authorized</doc>
