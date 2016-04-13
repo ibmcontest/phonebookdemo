@@ -25,9 +25,7 @@
           <param name="id" type="xsd:string" required="true">
             <doc title="id" xml:lang="en"></doc>
           </param>
-          <param href="#phonebookEntry" name="body" required="true">
-            <doc title="body" xml:lang="en"></doc>
-          </param>
+          <representation mediaType="application/json" href="#phonebookEntry" />
         </request>
         <response status="200">
           <representation mediaType="application/json" href="#phonebookEntry" />
@@ -58,9 +56,7 @@
       <method id="create" name="POST">
         <doc title="create" xml:lang="en">Adds entry to phonebook</doc>
         <request>
-          <param href="#phonebookEntry" name="body" required="true">
-            <doc title="body" xml:lang="en"></doc>
-          </param>
+          <representation mediaType="application/json" href="#phonebookEntry" />
         </request>
         <response status="200">
           <representation element="xsd:string" />
