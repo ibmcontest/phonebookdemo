@@ -1,115 +1,151 @@
-<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:pb="phonebook">
-  <grammars>
-    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="phonebook"
-  xmlns="phonebook" attributeFormDefault="unqualified" elementFormDefault="unqualified">
-      <xs:element name="phonebookEntries" type="phonebookEntries"/>
-      <xs:element name="phonebookEntry" type="phonebookEntry"/>
-      <xs:element name="userEntry" type="userEntry"/>
-      <xs:complexType name="phonebookEntries">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="entries" type="phonebookEntry"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:complexType name="phonebookEntry">
-        <xs:sequence>
-          <xs:element name="id" type="xs:long"/>
-          <xs:element minOccurs="0" name="title" type="xs:string"/>
-          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
-          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
-          <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:complexType name="userEntry">
-        <xs:sequence>
-          <xs:element name="key" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-    </xs:schema>
-  </grammars>
-  <resources base="http://example.com/api/">
-    <resource path="/phonebook">
-      <method name="GET" id="queryPhonebook">
-        <doc>Returns list of entries matching the query</doc>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="phonebook" xml:lang="en"></doc>
+  <resources base="http://example.com/api">
+    <resource id="/phonebook/{id}" path="/phonebook/{id}">
+      <method id="getEntry" name="GET">
+        <doc title="getEntry" xml:lang="en">Returns entry with provided ID</doc>
         <request>
-          <param name="Authorization" style="query" type="xs:string"/>
-          <param name="title" style="query" type="xs:string"/>
-          <param name="firstname" style="query" type="xs:string"/>
-          <param name="lastname" style="query" type="xs:string"/>
+          <param name="id" type="xsd:string" required="true">
+            <doc title="id" xml:lang="en"></doc>
+          </param>
         </request>
         <response status="200">
-          <doc>OK</doc>
-          <representation mediaType="application/json" element="pb:phonebookEntries"/>
+          <representation mediaType="application/json" href="#phonebookEntries" />
         </response>
         <response status="401">
-          <doc>User Not Authorized</doc>
+          <doc title="401" xml:lang="en">User not authorized</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Entry not found for given ID</doc>
         </response>
       </method>
-      <method name="POST" id="create">
-        <doc>Adds entry to phonebook</doc>
+      <method id="update" name="PUT">
+        <doc title="update" xml:lang="en">Updates an existing entry in the phonebook</doc>
         <request>
-          <param name="Authorization" style="query" type="xs:string"/>
-          <representation mediaType="application/json" element="pb:phonebookEntry"/>
+          <param name="id" type="xsd:string" required="true">
+            <doc title="id" xml:lang="en"></doc>
+          </param>
+          <param href="#phonebookEntry" name="body" required="true">
+            <doc title="body" xml:lang="en"></doc>
+          </param>
         </request>
-        <response status="201">
-          <doc>Created Successfully</doc>
+        <response status="200">
+          <representation mediaType="application/json" href="#phonebookEntry" />
         </response>
         <response status="401">
-          <doc>User Not Authorized</doc>
+          <doc title="401" xml:lang="en">User not authorized</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Entry not found for given ID</doc>
         </response>
       </method>
-      <resource path="/{id}">
-        <param name="id" style="template" type="xs:string"/>
-        <method name="DELETE" id="deleteEntry">
-          <doc>Deletes an existing entry from the phonebook</doc>
-          <request>
-            <param name="Authorization" style="query" type="xs:string"/>
-          </request>
-          <response status="204">
-            <doc>OK</doc>
-          </response>
-          <response status="401">
-            <doc>User Not Authorized</doc>
-          </response>
-          <response status="404">
-            <doc>Entry not found for given ID</doc>
-          </response>
-        </method>
-        <method name="GET" id="getEntry">
-          <doc>Returns entry with provided ID</doc>
-          <request>
-            <param name="Authorization" style="query" type="xs:string"/>
-          </request>
-          <response>
-            <representation mediaType="application/json" element="pb:phonebookEntry"/>
-          </response>
-        </method>
-        <method name="PUT" id="update">
-          <doc>Updates an existing entry in the phonebook</doc>
-          <request>
-            <param name="Authorization" style="query" type="xs:string"/>
-            <representation mediaType="application/json" element="pb:phonebookEntry"/>
-          </request>
-          <response status="200">
-            <doc>OK</doc>
-            <representation mediaType="application/json" element="pb:phonebookEntry"/>
-          </response>
-          <response status="401">
-            <doc>User Not Authorized</doc>
-          </response>
-          <response status="404">
-            <doc>Entry not found for given ID</doc>
-          </response>
-        </method>
-      </resource>
+      <method id="deleteEntry" name="DELETE">
+        <doc title="deleteEntry" xml:lang="en">Deletes an existing entry from the phonebook</doc>
+        <request>
+          <param name="id" type="xsd:string" required="true">
+            <doc title="id" xml:lang="en"></doc>
+          </param>
+        </request>
+        <response status="401">
+          <doc title="401" xml:lang="en">User not authorized</doc>
+        </response>
+        <response status="404">
+          <doc title="404" xml:lang="en">Entry not found for given ID</doc>
+        </response>
+      </method>
     </resource>
-    <resource path="/user">
-      <method name="POST" id="createUser">
-        <doc>Creates new user entry</doc>
+    <resource id="/phonebook" path="/phonebook">
+      <method id="create" name="POST">
+        <doc title="create" xml:lang="en">Adds entry to phonebook</doc>
+        <request>
+          <param href="#phonebookEntry" name="body" required="true">
+            <doc title="body" xml:lang="en"></doc>
+          </param>
+        </request>
         <response status="200">
-          <doc>successful operation</doc>
-          <representation mediaType="application/json" element="pb:userEntry"/>
+          <representation element="xsd:string" />
+        </response>
+        <response status="401">
+          <doc title="401" xml:lang="en">User not authorized</doc>
+        </response>
+      </method>
+      <method id="queryPhonebook" name="GET">
+        <doc title="queryPhonebook" xml:lang="en">Returns list of entries matching the query</doc>
+        <request>
+          <param name="title" type="xsd:string">
+            <doc title="title" xml:lang="en"></doc>
+          </param>
+          <param name="firstname" type="xsd:string">
+            <doc title="firstname" xml:lang="en"></doc>
+          </param>
+          <param name="lastname" type="xsd:string">
+            <doc title="lastname" xml:lang="en"></doc>
+          </param>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" href="#phonebookEntries" />
+        </response>
+        <response status="401">
+          <doc title="401" xml:lang="en">User not authorized</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="/user" path="/user">
+      <method id="createUser" name="POST">
+        <doc title="createUser" xml:lang="en">Creates new user entry</doc>
+        <request />
+        <response status="200">
+          <representation mediaType="application/json" href="#userEntry" />
         </response>
       </method>
     </resource>
   </resources>
+  <representation id="phonebookEntries" mediaType="application/json">
+    <doc title="phonebookEntries" xml:lang="en"></doc>
+    <param href="#Entry" name="entries" repeating="true">
+      <doc title="entries" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="Entry" mediaType="application/json">
+    <doc title="Entry" xml:lang="en"></doc>
+    <param name="firstName" type="xsd:string">
+      <doc title="firstName" xml:lang="en"></doc>
+    </param>
+    <param name="id" type="xsd:float">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="lastName" type="xsd:string">
+      <doc title="lastName" xml:lang="en"></doc>
+    </param>
+    <param name="phoneNumber" type="xsd:string">
+      <doc title="phoneNumber" xml:lang="en"></doc>
+    </param>
+    <param name="title" type="xsd:string">
+      <doc title="title" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="phonebookEntry" mediaType="application/json">
+    <doc title="phonebookEntry" xml:lang="en"></doc>
+    <param name="firstName" type="xsd:string">
+      <doc title="firstName" xml:lang="en"></doc>
+    </param>
+    <param name="id" type="xsd:float">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="lastName" type="xsd:string">
+      <doc title="lastName" xml:lang="en"></doc>
+    </param>
+    <param name="phoneNumber" type="xsd:string">
+      <doc title="phoneNumber" xml:lang="en"></doc>
+    </param>
+    <param name="title" type="xsd:string">
+      <doc title="title" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="userEntry" mediaType="application/json">
+    <doc title="userEntry" xml:lang="en"></doc>
+    <param name="userkey" type="xsd:string">
+      <doc title="userkey" xml:lang="en"></doc>
+    </param>
+  </representation>
 </application>
