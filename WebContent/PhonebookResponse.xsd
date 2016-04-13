@@ -1,4 +1,4 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="ibm:phonebook" xmlns="ibm:phonebook" elementFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="ibm:phonebook" xmlns="ibm:phonebook" elementFormDefault="qualified">
       <xs:element name="phonebookEntries" type="phonebookEntries"/>
       <xs:element name="phonebookEntry" type="phonebookEntry"/>
       <xs:element name="userEntry" type="userEntry"/>
