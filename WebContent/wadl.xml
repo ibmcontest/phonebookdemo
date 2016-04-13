@@ -1,30 +1,4 @@
 <application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <grammars>
-    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified">
-      <xs:element name="phonebookEntries" type="phonebookEntries"/>
-      <xs:element name="phonebookEntry" type="phonebookEntry"/>
-      <xs:element name="userEntry" type="userEntry"/>
-      <xs:complexType name="phonebookEntries">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="entries" type="phonebookEntry"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:complexType name="phonebookEntry">
-        <xs:sequence>
-          <xs:element name="id" type="xs:long"/>
-          <xs:element minOccurs="0" name="title" type="xs:string"/>
-          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
-          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
-          <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:complexType name="userEntry">
-        <xs:sequence>
-          <xs:element name="key" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-    </xs:schema>
-  </grammars>
   <resources base="http://example.com/api/">
     <resource path="/phonebook">
       <method name="GET" id="queryPhonebook">
@@ -37,7 +11,7 @@
         </request>
         <response status="200">
           <doc>OK</doc>
-          <representation mediaType="application/json" element="xs:phonebookEntries"/>
+          <representation mediaType="application/json" href="#phonebookEntries"/>
         </response>
         <response status="401">
           <doc>User Not Authorized</doc>
@@ -47,7 +21,7 @@
         <doc>Adds entry to phonebook</doc>
         <request>
           <param name="Authorization" style="query" type="xs:string"/>
-          <representation mediaType="application/json" element="xs:phonebookEntry"/>
+          <representation mediaType="application/json" href="#phonebookEntry"/>
         </request>
         <response status="201">
           <doc>Created Successfully</doc>
@@ -79,18 +53,18 @@
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
           <response>
-            <representation mediaType="application/json" element="xs:phonebookEntry"/>
+            <representation mediaType="application/json" href="#phonebookEntry"/>
           </response>
         </method>
         <method name="PUT" id="update">
           <doc>Updates an existing entry in the phonebook</doc>
           <request>
             <param name="Authorization" style="query" type="xs:string"/>
-            <representation mediaType="application/json" element="xs:phonebookEntry"/>
+            <representation mediaType="application/json" href="#phonebookEntry"/>
           </request>
           <response status="200">
             <doc>OK</doc>
-            <representation mediaType="application/json" element="xs:phonebookEntry"/>
+            <representation mediaType="application/json" href="#phonebookEntry"/>
           </response>
           <response status="401">
             <doc>User Not Authorized</doc>
@@ -106,9 +80,39 @@
         <doc>Creates new user entry</doc>
         <response status="200">
           <doc>successful operation</doc>
-          <representation mediaType="application/json" element="xs:userEntry"/>
+          <representation mediaType="application/json" href="#userEntry"/>
         </response>
       </method>
     </resource>
   </resources>
+  <representation id="PhonebookEntry" mediaType="application/json">
+    <doc title="PhonebookEntry" xml:lang="en"></doc>
+    <param name="id" type="xsd:integer">
+      <doc title="id" xml:lang="en"></doc>
+    </param>
+    <param name="title" type="xsd:string">
+      <doc title="title" xml:lang="en"></doc>
+    </param>
+    <param name="firstName" type="xsd:string">
+      <doc title="firstName" xml:lang="en"></doc>
+    </param>
+    <param name="lastName" type="xsd:string">
+      <doc title="lastName" xml:lang="en"></doc>
+    </param>
+    <param name="phoneNumber" type="xsd:string">
+      <doc title="phoneNumber" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="PhonebookEntries" mediaType="application/json">
+    <doc title="PhonebookEntries" xml:lang="en"></doc>
+    <param href="#PhonebookEntry" name="entries" repeating="true">
+      <doc title="entries" xml:lang="en"></doc>
+    </param>
+  </representation>
+  <representation id="UserEntry" mediaType="application/json">
+    <doc title="UserEntry" xml:lang="en"></doc>
+    <param name="key" type="xsd:string">
+      <doc title="key" xml:lang="en"></doc>
+    </param>
+  </representation>
 </application>
