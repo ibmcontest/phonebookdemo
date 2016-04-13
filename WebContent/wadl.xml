@@ -1,4 +1,4 @@
-<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema"xmlns:tns="ibm:phonebook" xmlns:pb="ibm:phonebook">
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ibm:phonebook" xmlns:pb="ibm:phonebook">
   <grammars>
     <include href="PhonebookResponse.xsd"/>
   </grammars>
