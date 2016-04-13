@@ -37,7 +37,7 @@
         </request>
         <response status="200">
           <doc>OK</doc>
-          <representation mediaType="application/json" element="phonebookEntries"/>
+          <representation mediaType="application/json" element="xs:phonebookEntries"/>
         </response>
         <response status="401">
           <doc>User Not Authorized</doc>
@@ -47,7 +47,7 @@
         <doc>Adds entry to phonebook</doc>
         <request>
           <param name="Authorization" style="query" type="xs:string"/>
-          <representation mediaType="application/json" element="phonebookEntry"/>
+          <representation mediaType="application/json" element="xs:phonebookEntry"/>
         </request>
         <response status="201">
           <doc>Created Successfully</doc>
@@ -79,18 +79,18 @@
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
           <response>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="xs:phonebookEntry"/>
           </response>
         </method>
         <method name="PUT" id="update">
           <doc>Updates an existing entry in the phonebook</doc>
           <request>
             <param name="Authorization" style="query" type="xs:string"/>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="xs:phonebookEntry"/>
           </request>
           <response status="200">
             <doc>OK</doc>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="xs:phonebookEntry"/>
           </response>
           <response status="401">
             <doc>User Not Authorized</doc>
@@ -106,7 +106,7 @@
         <doc>Creates new user entry</doc>
         <response status="200">
           <doc>successful operation</doc>
-          <representation mediaType="application/json" element="userEntry"/>
+          <representation mediaType="application/json" element="xs:userEntry"/>
         </response>
       </method>
     </resource>
