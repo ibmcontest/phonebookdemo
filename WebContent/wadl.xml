@@ -2,7 +2,7 @@
   <grammars>
     <include href="PhonebookResponse.xsd"/>
   </grammars>
-  <resources base="http://example.com/api/">
+  <resources base="http://phonebookdemo.mybluemix.net/api/">
     <resource path="/phonebook">
       <method name="GET" id="queryPhonebook">
         <doc>Returns list of entries matching the query</doc>
