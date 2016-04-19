@@ -97,6 +97,16 @@
               <doc title="OK">OK</doc>
             </representation>
           </response>
+          <response status="401">
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
+          </response>
+          <response status="404">
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
+          </response>
         </method>
         <method name="PUT" id="update">
           <doc>Updates an existing entry in the phonebook</doc>
