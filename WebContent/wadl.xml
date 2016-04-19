@@ -26,7 +26,7 @@
       </xs:complexType>
     </xs:schema>
   </grammars>
-  <resources base="http://example.com/api/">
+  <resources base="http://phonebookdemo.mybluemix.net/api/">
     <resource path="/phonebook">
       <method name="GET" id="queryPhonebook">
         <doc>Returns list of entries matching the query</doc>
@@ -37,11 +37,14 @@
           <param name="lastname" style="query" type="xs:string"/>
         </request>
         <response status="200">
-          <doc title="OK">OK</doc>
-          <representation mediaType="application/json" element="phonebookEntries"/>
+          <representation mediaType="application/json" element="phonebookEntries">
+            <doc title="OK">OK</doc>
+          </representation>
         </response>
         <response status="401">
-          <doc title="User Not Authorized">User Not Authorized</doc>
+          <representation>
+            <doc title="User Not Authorized">User Not Authorized</doc>
+          </representation>
         </response>
       </method>
       <method name="POST" id="create">
@@ -51,10 +54,14 @@
           <representation mediaType="application/json" element="phonebookEntry"/>
         </request>
         <response status="201">
-          <doc title="Created Successfully">Created Successfully</doc>
+          <representation>
+            <doc title="Created Successfully">Created Successfully</doc>
+          </representation>
         </response>
         <response status="401">
-          <doc title="User Not Authorized">User Not Authorized</doc>
+          <representation>
+            <doc title="User Not Authorized">User Not Authorized</doc>
+          </representation>
         </response>
       </method>
       <resource path="/{id}">
@@ -65,13 +72,19 @@
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
           <response status="204">
-            <doc title="OK">OK</doc>
+            <representation>
+              <doc title="OK">OK</doc>
+            </representation>
           </response>
           <response status="401">
-            <doc title="User Not Authorized">User Not Authorized</doc>
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
           </response>
           <response status="404">
-            <doc title="Entry Not Found">Entry not found for given ID</doc>
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
           </response>
         </method>
         <method name="GET" id="getEntry">
@@ -80,8 +93,9 @@
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
           <response status="200">
-            <doc title="OK">OK</doc>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="phonebookEntry">
+              <doc title="OK">OK</doc>
+            </representation>
           </response>
         </method>
         <method name="PUT" id="update">
@@ -91,14 +105,19 @@
             <representation mediaType="application/json" element="phonebookEntry"/>
           </request>
           <response status="200">
-            <doc title="OK">OK</doc>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="phonebookEntry">
+              <doc title="OK">OK</doc>
+            </representation>
           </response>
           <response status="401">
-            <doc title="User Not Authorized">User Not Authorized</doc>
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
           </response>
           <response status="404">
-            <doc title="Entry Not Found">Entry not found for given ID</doc>
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
           </response>
         </method>
       </resource>
@@ -107,8 +126,9 @@
       <method name="POST" id="createUser">
         <doc>Creates new user entry</doc>
         <response status="200">
-          <doc title="OK">OK</doc>
-          <representation mediaType="application/json" element="userEntry"/>
+          <representation mediaType="application/json" element="userEntry">
+            <doc title="OK">OK</doc>
+          </representation>
         </response>
       </method>
     </resource>
