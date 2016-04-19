@@ -1,4 +1,5 @@
 <application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <doc title="phonebook"></doc>
   <grammars>
     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
       <xs:element name="phonebookEntries" type="phonebookEntries"/>
@@ -36,11 +37,14 @@
           <param name="lastname" style="query" type="xs:string"/>
         </request>
         <response status="200">
-          <doc>OK</doc>
-          <representation mediaType="application/json" element="phonebookEntries"/>
+          <representation mediaType="application/json" element="phonebookEntries">
+            <doc title="OK">OK</doc>
+          </representation>
         </response>
         <response status="401">
-          <doc>User Not Authorized</doc>
+          <representation>
+            <doc title="User Not Authorized">User Not Authorized</doc>
+          </representation>
         </response>
       </method>
       <method name="POST" id="create">
@@ -50,10 +54,14 @@
           <representation mediaType="application/json" element="phonebookEntry"/>
         </request>
         <response status="201">
-          <doc>Created Successfully</doc>
+          <representation>
+            <doc title="Created Successfully">Created Successfully</doc>
+          </representation>
         </response>
         <response status="401">
-          <doc>User Not Authorized</doc>
+          <representation>
+            <doc title="User Not Authorized">User Not Authorized</doc>
+          </representation>
         </response>
       </method>
       <resource path="/{id}">
@@ -64,13 +72,19 @@
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
           <response status="204">
-            <doc>OK</doc>
+            <representation>
+              <doc title="OK">OK</doc>
+            </representation>
           </response>
           <response status="401">
-            <doc>User Not Authorized</doc>
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
           </response>
           <response status="404">
-            <doc>Entry not found for given ID</doc>
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
           </response>
         </method>
         <method name="GET" id="getEntry">
@@ -78,8 +92,20 @@
           <request>
             <param name="Authorization" style="query" type="xs:string"/>
           </request>
-          <response>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+          <response status="200">
+            <representation mediaType="application/json" element="phonebookEntry">
+              <doc title="OK">OK</doc>
+            </representation>
+          </response>
+          <response status="401">
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
+          </response>
+          <response status="404">
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
           </response>
         </method>
         <method name="PUT" id="update">
@@ -89,14 +115,19 @@
             <representation mediaType="application/json" element="phonebookEntry"/>
           </request>
           <response status="200">
-            <doc>OK</doc>
-            <representation mediaType="application/json" element="phonebookEntry"/>
+            <representation mediaType="application/json" element="phonebookEntry">
+              <doc title="OK">OK</doc>
+            </representation>
           </response>
           <response status="401">
-            <doc>User Not Authorized</doc>
+            <representation>
+              <doc title="User Not Authorized">User Not Authorized</doc>
+            </representation>
           </response>
           <response status="404">
-            <doc>Entry not found for given ID</doc>
+            <representation>
+              <doc title="Entry Not Found">Entry not found for given ID</doc>
+            </representation>
           </response>
         </method>
       </resource>
@@ -105,8 +136,9 @@
       <method name="POST" id="createUser">
         <doc>Creates new user entry</doc>
         <response status="200">
-          <doc>successful operation</doc>
-          <representation mediaType="application/json" element="userEntry"/>
+          <representation mediaType="application/json" element="userEntry">
+            <doc title="OK">OK</doc>
+          </representation>
         </response>
       </method>
     </resource>
