@@ -25,7 +25,7 @@
       </xs:complexType>
     </xs:schema>
   </grammars>
-  <resources base="http://phonebookdemo.mybluemix.net/api/">
+  <resources base="http://example.com/api/">
     <resource path="/phonebook">
       <method name="GET" id="queryPhonebook">
         <doc>Returns list of entries matching the query</doc>

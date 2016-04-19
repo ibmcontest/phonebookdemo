@@ -2,7 +2,7 @@
 An example Java Liberty Application using DB2 to store Phone numbers.
 
 Once deployed, the list of endpoints can be found in the following documentation:
-* WADL definition: ```GET /api/phonebook?_wadl&_type=xml```
+* WADL definition: ```GET /wadl.xml```
 * Swagger 2.0 JSON definition: ```GET /api/swagger.json```
 * Swagger 2.0 YAML definition: ```GET /api/swagger.yaml```
 * RAML 0.8 definition: ```GET /api.raml```
