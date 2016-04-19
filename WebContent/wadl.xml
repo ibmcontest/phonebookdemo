@@ -1,0 +1,114 @@
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <grammars>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+      <xs:element name="phonebookEntries" type="phonebookEntries"/>
+      <xs:element name="phonebookEntry" type="phonebookEntry"/>
+      <xs:element name="userEntry" type="userEntry"/>
+      <xs:complexType name="phonebookEntries">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="entries" type="phonebookEntry"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="phonebookEntry">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="title" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="userEntry">
+        <xs:sequence>
+          <xs:element name="key" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </grammars>
+  <resources base="http://example.com/api/">
+    <resource path="/phonebook">
+      <method name="GET" id="queryPhonebook">
+        <doc>Returns list of entries matching the query</doc>
+        <request>
+          <param name="Authorization" style="query" type="xs:string"/>
+          <param name="title" style="query" type="xs:string"/>
+          <param name="firstname" style="query" type="xs:string"/>
+          <param name="lastname" style="query" type="xs:string"/>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <representation mediaType="application/json" element="phonebookEntries"/>
+        </response>
+        <response status="401">
+          <doc>User Not Authorized</doc>
+        </response>
+      </method>
+      <method name="POST" id="create">
+        <doc>Adds entry to phonebook</doc>
+        <request>
+          <param name="Authorization" style="query" type="xs:string"/>
+          <representation mediaType="application/json" element="phonebookEntry"/>
+        </request>
+        <response status="201">
+          <doc>Created Successfully</doc>
+        </response>
+        <response status="401">
+          <doc>User Not Authorized</doc>
+        </response>
+      </method>
+      <resource path="/{id}">
+        <param name="id" style="template" type="xs:string"/>
+        <method name="DELETE" id="deleteEntry">
+          <doc>Deletes an existing entry from the phonebook</doc>
+          <request>
+            <param name="Authorization" style="query" type="xs:string"/>
+          </request>
+          <response status="204">
+            <doc>OK</doc>
+          </response>
+          <response status="401">
+            <doc>User Not Authorized</doc>
+          </response>
+          <response status="404">
+            <doc>Entry not found for given ID</doc>
+          </response>
+        </method>
+        <method name="GET" id="getEntry">
+          <doc>Returns entry with provided ID</doc>
+          <request>
+            <param name="Authorization" style="query" type="xs:string"/>
+          </request>
+          <response>
+            <representation mediaType="application/json" element="phonebookEntry"/>
+          </response>
+        </method>
+        <method name="PUT" id="update">
+          <doc>Updates an existing entry in the phonebook</doc>
+          <request>
+            <param name="Authorization" style="query" type="xs:string"/>
+            <representation mediaType="application/json" element="phonebookEntry"/>
+          </request>
+          <response status="200">
+            <doc>OK</doc>
+            <representation mediaType="application/json" element="phonebookEntry"/>
+          </response>
+          <response status="401">
+            <doc>User Not Authorized</doc>
+          </response>
+          <response status="404">
+            <doc>Entry not found for given ID</doc>
+          </response>
+        </method>
+      </resource>
+    </resource>
+    <resource path="/user">
+      <method name="POST" id="createUser">
+        <doc>Creates new user entry</doc>
+        <response status="200">
+          <doc>successful operation</doc>
+          <representation mediaType="application/json" element="userEntry"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>
