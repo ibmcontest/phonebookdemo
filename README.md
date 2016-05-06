@@ -6,6 +6,7 @@ Once deployed, the list of endpoints can be found in the following documentation
 * Swagger 2.0 JSON definition: ```GET /api/swagger.json```
 * Swagger 2.0 YAML definition: ```GET /api/swagger.yaml```
 * RAML 0.8 definition: ```GET /api.raml```
+* Api Blueprint 1A definition ```GET /api.apib```
 
 ## Deploying on Bluemix
 You'll need a [Bluemix][1] account, and then [deploy this application to Bluemix][2]
