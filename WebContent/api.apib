@@ -10,25 +10,14 @@ HOST: http://example.com/api
 Returns list of entries matching the query
 + Parameters
     + Authorization (string)
-
     + title (string, optional)
-
     + firstname (string, optional)
-
     + lastname (string, optional)
 
-
 + Response 200 (application/json)
-
-    OK
-
     + Attributes (PhonebookEntries)
 
 + Response 401 
-
-    User not authorized
-
-
 
 
 ## Phonebook [/phonebook{?Authorization}]
@@ -38,20 +27,12 @@ Adds entry to phonebook
 + Parameters
     + Authorization (string)
 
-
 + Request (application/json)
     + Attributes (PhonebookEntry)
 
 + Response 201 
 
-    Created successfully
-
 + Response 401 
-
-    User not authorized
-
-
-
 
 ## Phonebook By Id [/phonebook/{id}{?Authorization}]
 
@@ -59,75 +40,44 @@ Adds entry to phonebook
 Returns entry with provided ID
 + Parameters
     + Authorization (string)
-    
     + id (number, required)
 
-
 + Response 200 (application/json)
-
-    OK
-
     + Attributes (PhonebookEntry)
 
 + Response 401 
 
-    User not authorized
-
 + Response 404 
-
-    Entry not found for given ID
-
 
 
 ### update [PUT]
 Updates an existing entry in the phonebook
 + Parameters
-    + Authorization (string)
-    
+    + Authorization (string)  
     + id (number, required)
-
 
 + Request (application/json)
     + Attributes (PhonebookEntry)
 
 + Response 200 (application/json)
-
-    OK
-
     + Attributes (PhonebookEntry)
 
 + Response 401 
 
-    User not authorized
-
 + Response 404 
-
-    Entry not found for given ID
-
 
 
 ### deleteEntry [DELETE]
 Deletes an existing entry from the phonebook
 + Parameters
     + Authorization (string)
-    
     + id (number, required)
-
 
 + Response 204
 
-    OK
++ Response 401
 
-+ Response 401 
-
-    User not authorized
-
-+ Response 404 
-
-    Entry not found for given ID
-
-
-
++ Response 404
 
 
 # Group user
@@ -138,36 +88,21 @@ Deletes an existing entry from the phonebook
 Creates new user entry
 
 + Response 200 (application/json)
-
-    successful operation
-
     + Attributes (UserEntry)
-
 
 
 # Data Structures
 
 ## PhonebookEntry (object)
-
-
-### Properties
-+ `id` (number, optional) 
-+ `title` (string, optional) 
-+ `firstName` (string, optional) 
-+ `lastName` (string, optional) 
-+ `phoneNumber` (string, optional) 
++ id (number) 
++ title (string) 
++ firstName (string) 
++ lastName (string) 
++ phoneNumber (string) 
 
 
 ## PhonebookEntries (object)
-
-
-### Properties
-+ `entries` (array[PhonebookEntry], optional) 
-
++ entries (array[PhonebookEntry]) 
 
 ## UserEntry (object)
-
-
-### Properties
-+ `key` (string, optional) 
-
++ key (string) 
